@@ -1,6 +1,6 @@
 from kedro.pipeline import node, pipeline
 
-from .nodes import prune, refactor_data_structure
+from .nodes import prune, refactor_data_structure, create_data_loader
 
 
 def create_pipeline():
@@ -16,5 +16,11 @@ def create_pipeline():
             ["params:processed_path", "params:prune_frac"],
             None,
             name="prune_dataset"
+        ),
+        node(
+            create_data_loader,
+            ["params:processed_path", "params:batch_size", "params:dataloader_num_workers"],
+            "places_dataset",
+            name="create_data_loader"
         )
     ])

@@ -1,10 +1,24 @@
 import os
 import shutil
+import torch
+import torchvision as tv
 
 try:
     from tqdm import tqdm as progress_bar
 except ImportError:
     progress_bar = lambda x: x
+
+
+def create_data_loader(data_dir: str, batch_size: int, num_workers: int) -> torch.utils.data.DataLoader:
+    dataset = tv.datasets.ImageFolder(
+        data_dir,
+        transform=tv.transforms.Compose([
+            tv.transforms.PILToTensor(),
+            tv.transforms.ConvertImageDtype(torch.float),
+            tv.transforms.Lambda(lambda x: x/255)
+        ])
+    )
+    return torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
 
 def prune(data_dir: str, prune_frac: float):
