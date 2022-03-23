@@ -1,5 +1,11 @@
 # Places365
 
+In this simple task we train a CNN model on Places356 dataset to perform image classification.
+
+There are 1.8 million train images from 365 scene categories in the Places365-Standard, which are used to train the Places365 CNNs. There are 50 images per category in the validation set and 900 images per category in the testing set.
+
+Convolutional neural networks (CNNs) trained on the Places2 Database can be used for scene recognition as well as generic deep scene features for visual recognition.
+
 ## Overview
 
 This is your new Kedro project, which was generated using `Kedro 0.17.7`.
