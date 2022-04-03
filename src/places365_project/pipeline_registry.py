@@ -3,6 +3,7 @@ from typing import Dict
 
 from kedro.pipeline import Pipeline
 from places365_project.pipelines import dataset_creation as dc
+from places365_project.pipelines import model_training as mt
 
 
 def register_pipelines() -> Dict[str, Pipeline]:
@@ -12,8 +13,10 @@ def register_pipelines() -> Dict[str, Pipeline]:
         A mapping from a pipeline name to a ``Pipeline`` object.
     """
     dataset_creation_pipeline = dc.create_pipeline()
+    model_training_pipeline = mt.create_pipeline()
 
     return {
         "dc": dataset_creation_pipeline,
+        "mt": model_training_pipeline,
         "__default__": dataset_creation_pipeline
     }

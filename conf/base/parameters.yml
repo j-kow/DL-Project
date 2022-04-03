@@ -1,7 +1,18 @@
 #Parameters used for creating and processing dataset
-raw_path: data\\01_raw\\data_256
-processed_path: data\\05_model_input\\data_256
+raw_path: /media/kacper/2076D0F376D0CAA4/DL-Project/data/01_raw/data_256
+processed_path: /media/kacper/2076D0F376D0CAA4/DL-Project/data/03_primary/data_256
+final_path: /media/kacper/2076D0F376D0CAA4/DL-Project/data/05_model_input/data_256
 prune_frac: 0.70
 delete_raw_data: True
-batch_size: 4
+batch_size: 128
 dataloader_num_workers: 0
+train_val_test: train
+shuffle: True
+delete_unsplitted_data: True
+split_required: [6,2,2]
+frequency: 2
+no_classes: 368
+lr: 0.1
+patience: 2
+workers: 4
+models_path: /media/kacper/2076D0F376D0CAA4/DL-Project/data/06_models
