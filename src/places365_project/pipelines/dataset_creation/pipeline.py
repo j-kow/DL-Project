@@ -19,7 +19,7 @@ def create_pipeline():
         ),
         node(
             split_into_train_val_test,
-            ["params:processed_path", "params:split_required", "params:delete_unsplitted_data"],
+            ["params:processed_path", "params:final_path", "params:split_required", "params:delete_unsplitted_data"],
             None,
             name="split_dataset"
         ),

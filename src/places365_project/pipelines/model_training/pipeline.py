@@ -12,7 +12,7 @@ def create_pipeline():
     return pipeline([
         node(
             initialize,
-            ["params:processed_path", "params:batch_size",'params:lr', 'params:patience', 'params:frequency', 'params:no_classes'],
+            ["params:final_path", "params:batch_size",'params:lr', 'params:patience', 'params:frequency', 'params:workers',  'params:no_classes'],
             ['model', 'sets'],
             name="initialize_model"
         ),

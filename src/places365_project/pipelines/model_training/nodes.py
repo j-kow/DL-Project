@@ -19,6 +19,8 @@ def create_data_loader(input_dir: str, train_val_test: str, batch_size: int, shu
         :type data_dir: str
         :param train_val_test: DataLoader for which subset of data to return, train, validation or test
         :type train_val_test: str
+        :param train_val_test: DataLoader for which subset of data to return, train, validation or test
+        :type train_val_test: str
         :param batch_size: Number of images in a batch
         :type batch_size: int
         :param shuffle: Whether or not to shuffle the data
@@ -42,20 +44,49 @@ def create_data_loader(input_dir: str, train_val_test: str, batch_size: int, shu
     return torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers)
 
 
-def initialize(input_dir: str, batch_size: int, lr: float, patience: int, frequency: int, no_classes: int)-> [PlacesModel, tuple]:
+def initialize(input_dir: str, batch_size: int, lr: float, patience: int, frequency: int, num_workers: int, no_classes: int)-> [PlacesModel, tuple]:
+    """Initializes neural network for solving classification problem on Places365 dataset
+
+        :param input_dir: Path to the splitted dataset
+        :type input_dir: str
+        :param batch_size: Number of images in a batch
+        :type batch_size: int
+        :param lr: Learing rate for model's optimizer
+        :type lr: float
+        :param frequency: Frequency for model's optimizer
+        :type frequency: int
+        :param num_workers: How many subprocesses are used for data loading
+        :type num_workers: int
+        :param no_classes: How many calles are in the dataset, used for classier retraining
+        :type no_classes: int
+        :return: Model object alongside train, validation, test data loaders
+        :rtype: list
+        """
+
+
     model=PlacesModel(lr, patience, frequency, no_classes)
     #train_set=create_data_loader(input_dir="../../../../data/05_model_input", train_val_test='train', batch_size=256, shuffle=True, num_workers=1)
     #val_set=create_data_loader(input_dir="../../../../data/05_model_input", train_val_test='val', batch_size=256, shuffle=False, num_workers=1)
     #test_set=create_data_loader(input_dir="../../../../data/05_model_input", train_val_test='test', batch_size=256, shuffle=False, num_workers=1)
-    train_set=create_data_loader(input_dir=input_dir, train_val_test='train', batch_size=batch_size, shuffle=True, num_workers=1)
-    val_set=create_data_loader(input_dir=input_dir, train_val_test='val', batch_size=batch_size, shuffle=False, num_workers=1)
-    test_set=create_data_loader(input_dir=input_dir, train_val_test='test', batch_size=batch_size, shuffle=False, num_workers=1)
+    train_set=create_data_loader(input_dir=input_dir, train_val_test='train', batch_size=batch_size, shuffle=True, num_workers=num_workers)
+    val_set=create_data_loader(input_dir=input_dir, train_val_test='val', batch_size=batch_size, shuffle=False, num_workers=num_workers)
+    test_set=create_data_loader(input_dir=input_dir, train_val_test='test', batch_size=batch_size, shuffle=False, num_workers=num_workers)
 
     wandb.init(project="Places365", entity="dl_image_classification")
 
     return model, (train_set, val_set, test_set)
 
 def train_model(model: PlacesModel, sets: tuple, checkpoint_path: str):
+    """Trains the model
+
+        :param model: Model object created with initialize()
+        :type model: PlacesModel
+        :param sets: Tuple of 3 DataLoaders, each representing training, validation and test sets, in said order
+        :type sets: tuple
+        :param checkpoint_path: Path to directory in which to save model checkpoints
+        :type checkpoint_path: str
+        """
+
     train_data, val_data, test_data = sets
     wandb_logger = WandbLogger(project="Places365")
 
