@@ -1,14 +1,9 @@
 import torch
 from torch import nn
-import pytorch_lightning as pl
 from pytorch_lightning import LightningModule
 import torchvision as tv
 import torch.nn.functional as F
 from torchmetrics.functional import accuracy
-
-import numpy as np
-import torch.optim as optim
-
 
 
 class PlacesModel(LightningModule):
@@ -17,15 +12,18 @@ class PlacesModel(LightningModule):
         self.save_hyperparameters()
         self.model = tv.models.mobilenet_v3_small(pretrained=True)
 
-        for param in self.model.parameters(): # lock pretrained params
+        # lock pretrained params
+        for param in self.model.parameters():
             param.requires_grad = False
 
-        self.model.classifier=nn.Sequential( # new classifeir, should be unlocked by default
+        # new classifier, should be unlocked by default
+        self.model.classifier = nn.Sequential(
             nn.Linear(in_features=576, out_features=1024, bias=True),
             nn.Hardswish(),
             nn.Dropout(p=0.2, inplace=True),
             nn.Linear(in_features=1024, out_features=no_classes, bias=True),
         )
+
         with torch.no_grad():
             for name, p in self.model.classifier.named_parameters():
                 if "weight" in name:
@@ -33,11 +31,8 @@ class PlacesModel(LightningModule):
                 elif "bias" in name:
                     p.normal_(0, 0.1)
 
-
-
     def forward(self, x):
-        out = self.model(x)
-        return out #F.log_softmax(out, dim=1)?? softmax ewentualnie po treningu, eby w forwardzie nie liczy
+        return self.model(x)
 
     def training_step(self, batch, batch_idx):
         x, y = batch
