@@ -10,7 +10,8 @@ from typing import Tuple
 from .model import PlacesModel
 
 
-def create_data_loader(input_dir: str, train_val_test: str, batch_size: int, shuffle: bool, num_workers: int) -> DataLoader:
+def create_data_loader(input_dir: str, train_val_test: str, batch_size: int, shuffle: bool,
+                       num_workers: int) -> DataLoader:
     """
     Creates pytorch data loader from places365 dataset
 
@@ -44,7 +45,8 @@ def create_data_loader(input_dir: str, train_val_test: str, batch_size: int, shu
     return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers)
 
 
-def initialize(input_dir: str, batch_size: int, lr: float, patience: int, frequency: int, num_workers: int, no_classes: int)-> Tuple[PlacesModel, Tuple[DataLoader, DataLoader, DataLoader]]:
+def initialize(input_dir: str, batch_size: int, lr: float, patience: int, frequency: int, num_workers: int,
+               no_classes: int) -> Tuple[PlacesModel, Tuple[DataLoader, DataLoader, DataLoader]]:
     """
     Initializes neural network for solving classification problem on Places365 dataset
 
@@ -52,7 +54,7 @@ def initialize(input_dir: str, batch_size: int, lr: float, patience: int, freque
     :type input_dir: str
     :param batch_size: Number of images in a batch
     :type batch_size: int
-    :param lr: Learing rate for model's optimizer
+    :param lr: Learning rate for model's optimizer
     :type lr: float
     :param patience: How to wait before learning rate scheduler fires up
     :type patience: number
@@ -60,16 +62,19 @@ def initialize(input_dir: str, batch_size: int, lr: float, patience: int, freque
     :type frequency: int
     :param num_workers: How many subprocesses are used for data loading
     :type num_workers: int
-    :param no_classes: How many calles are in the dataset, used for classier retraining
+    :param no_classes: How many calls are in the dataset, used for classier retraining
     :type no_classes: int
     :return: Model object alongside train, validation, test data loaders
     :rtype: Tuple[PlacesModel, Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader, torch.utils.data.DataLoader]]
     """
     model = PlacesModel(lr, patience, frequency, no_classes)
 
-    train_set = create_data_loader(input_dir=input_dir, train_val_test='train', batch_size=batch_size, shuffle=True, num_workers=num_workers)
-    val_set = create_data_loader(input_dir=input_dir, train_val_test='val', batch_size=batch_size, shuffle=False, num_workers=num_workers)
-    test_set = create_data_loader(input_dir=input_dir, train_val_test='test', batch_size=batch_size, shuffle=False, num_workers=num_workers)
+    train_set = create_data_loader(input_dir=input_dir, train_val_test='train', batch_size=batch_size, shuffle=True,
+                                   num_workers=num_workers)
+    val_set = create_data_loader(input_dir=input_dir, train_val_test='val', batch_size=batch_size, shuffle=False,
+                                 num_workers=num_workers)
+    test_set = create_data_loader(input_dir=input_dir, train_val_test='test', batch_size=batch_size, shuffle=False,
+                                  num_workers=num_workers)
 
     wandb.init(project="Places365", entity="dl_image_classification")
 
@@ -79,15 +84,15 @@ def initialize(input_dir: str, batch_size: int, lr: float, patience: int, freque
 def train_model(model: PlacesModel, sets: tuple, max_epochs: int, checkpoint_path: str):
     """Trains the model
 
-        :param model: Model object created with initialize()
-        :type model: PlacesModel
-        :param sets: Tuple of 3 DataLoaders, each representing training, validation and test sets, in said order
-        :type sets: tuple
-        :param max_epochs: Max number of epochs
-        :type max_epochs: number
-        :param checkpoint_path: Path to directory in which to save model checkpoints
-        :type checkpoint_path: str
-        """
+    :param model: Model object created with initialize()
+    :type model: PlacesModel
+    :param sets: Tuple of 3 DataLoaders, each representing training, validation and test sets, in said order
+    :type sets: tuple
+    :param max_epochs: Max number of epochs
+    :type max_epochs: number
+    :param checkpoint_path: Path to directory in which to save model checkpoints
+    :type checkpoint_path: str
+    """
 
     train_data, val_data, test_data = sets
     wandb_logger = WandbLogger(project="Places365")
