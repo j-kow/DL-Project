@@ -13,10 +13,12 @@ def register_pipelines() -> Dict[str, Pipeline]:
         A mapping from a pipeline name to a ``Pipeline`` object.
     """
     dataset_creation_pipeline = dc.create_pipeline()
-    model_training_pipeline = mt.create_pipeline()
+    model_training_pipeline = mt.create_train_pipeline()
+    gridsearch_pipeline = mt.create_grisdearch_pipeline()
 
     return {
         "dc": dataset_creation_pipeline,
         "mt": model_training_pipeline,
+        "gs": gridsearch_pipeline,
         "__default__": dataset_creation_pipeline
     }

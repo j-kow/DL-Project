@@ -5,8 +5,10 @@ import wandb
 from torchvision import transforms
 from torchvision.datasets import ImageFolder
 from torch.utils.data import DataLoader
+import itertools
+import shutil
 import os
-from typing import Tuple
+from typing import Tuple, Dict, Any
 from .model import PlacesModel
 
 
@@ -81,7 +83,7 @@ def initialize(input_dir: str, batch_size: int, lr: float, patience: int, freque
     return model, (train_set, val_set, test_set)
 
 
-def train_model(model: PlacesModel, sets: tuple, max_epochs: int, checkpoint_path: str):
+def train_model(model: PlacesModel, sets: tuple, max_epochs: int, checkpoint_path: str) -> pl.Trainer:
     """Trains the model
 
     :param model: Model object created with initialize()
@@ -92,6 +94,8 @@ def train_model(model: PlacesModel, sets: tuple, max_epochs: int, checkpoint_pat
     :type max_epochs: number
     :param checkpoint_path: Path to directory in which to save model checkpoints
     :type checkpoint_path: str
+    :return: Trainer of a model which can be later used for evaluation on validset/testset
+    :rtype: pl.Trainer
     """
 
     train_data, val_data, test_data = sets
@@ -110,4 +114,50 @@ def train_model(model: PlacesModel, sets: tuple, max_epochs: int, checkpoint_pat
     )
 
     trainer.fit(model, train_data, val_data)
-    trainer.test(model, test_data)
+    return trainer
+
+
+def create_gridsearch_parameters() -> Dict[str, Tuple]:
+    """
+    Creates a dictionary containing parameters to test during gridsearch.
+
+    :return: Dictionary of possible values for a given parameter
+    :rtype: Dict[str, Tuple]
+    """
+    params = {
+        "lr": (0.001, 0.003, 0.01, 0.03, 0.1, 0.3),
+        "patience": (1, 2, 3, 4, 5),
+        "frequency": (1, 2, 3, 4, 5)
+    }
+    return params
+
+
+def run_gridsearch(input_dir: str, batch_size: int, lr: float, patience: int, frequency: int, num_workers: int,
+                   no_classes: int, max_epochs: int, checkpoint_path: str, gridsearch_params: Dict[str, Tuple]):
+    best_path = os.path.join(checkpoint_path, "best")
+    current_path = os.path.join(checkpoint_path, "current")
+    default_parameters = {
+        "input_dir": input_dir, "batch_size": batch_size, "lr": lr, "patience": patience, "frequency": frequency,
+        "num_workers": num_workers, "no_classes": no_classes
+    }
+    name_variable_pair_list = [
+        [(name, value) for value in gridsearch_params[name]] for name in gridsearch_params.keys()
+    ]
+
+    best_acc = 0
+    for named_parameters in itertools.product(*name_variable_pair_list):
+        named_parameters = dict(named_parameters)
+        for parameter_name, value in default_parameters.values():
+            if named_parameters.get(parameter_name) is None:
+                named_parameters[parameter_name] = value
+
+        model, (train, val, test) = initialize(**named_parameters)
+        trainer = train_model(model, (train, val, test), max_epochs, current_path)
+        metrics = trainer.validate(model, val)[0]
+        if metrics["val_acc"] > best_acc:
+            best_acc = metrics["val_acc"]
+            shutil.rmtree(best_path)
+            shutil.copytree(current_path, best_path)
+        shutil.rmtree(current_path)
+    shutil.copytree(best_path, checkpoint_path)
+    shutil.rmtree(best_path)
