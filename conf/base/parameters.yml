@@ -13,7 +13,7 @@ shuffle: True
 delete_unsplitted_data: True
 split_required: [6,2,2]
 frequency: 2
-no_classes: 368
+no_classes: 365
 lr: 0.01
 patience: 2
 workers: 4

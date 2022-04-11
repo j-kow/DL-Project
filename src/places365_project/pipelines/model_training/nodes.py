@@ -101,6 +101,8 @@ def train_model(model: PlacesModel, sets: tuple, max_epochs: int, checkpoint_pat
     train_data, val_data, test_data = sets
     wandb_logger = WandbLogger(project="Places365")
 
+    gpu_devices = 1 if torch.cuda.is_available() else 0
+
     trainer = pl.Trainer(
         progress_bar_refresh_rate=10,
         check_val_every_n_epoch=2,
@@ -110,6 +112,7 @@ def train_model(model: PlacesModel, sets: tuple, max_epochs: int, checkpoint_pat
             pl.callbacks.EarlyStopping('val_loss', patience=3),
             pl.callbacks.ModelCheckpoint(dirpath=checkpoint_path)
         ],
+        gpus=gpu_devices,
         logger=wandb_logger,
     )
 

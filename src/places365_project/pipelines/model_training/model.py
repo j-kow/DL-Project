@@ -24,12 +24,12 @@ class PlacesModel(LightningModule):
             nn.Linear(in_features=1024, out_features=no_classes, bias=True),
         )
 
-        with torch.no_grad():
-            for name, p in self.model.classifier.named_parameters():
-                if "weight" in name:
-                    p.normal_(0, 0.1)
-                elif "bias" in name:
-                    p.normal_(0, 0.1)
+        #with torch.no_grad():
+        #    for name, p in self.model.classifier.named_parameters():
+        #        if "weight" in name:
+        #            p.normal_(0, 0.1)
+        #        elif "bias" in name:
+        #            p.normal_(0, 0.1)
 
     def forward(self, x):
         return self.model(x)
@@ -37,14 +37,14 @@ class PlacesModel(LightningModule):
     def training_step(self, batch, batch_idx):
         x, y = batch
         logits = self(x)
-        loss = F.nll_loss(logits, y)
+        loss = F.cross_entropy(logits, y)
         self.log("train_loss", loss)
         return loss
 
     def evaluate(self, batch, stage=None):
         x, y = batch
         logits = self(x)
-        loss = F.nll_loss(logits, y)
+        loss = F.cross_entropy(logits, y)
         preds = torch.argmax(logits, dim=1)
         acc = accuracy(preds, y)
         if stage:
