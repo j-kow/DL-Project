@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader
 import itertools
 import shutil
 import os
-from typing import Tuple, Dict, Any
+from typing import Tuple, Dict
 from .model import PlacesModel
 
 
@@ -25,7 +25,7 @@ def create_data_loader(input_dir: str, train_val_test: str, batch_size: int, shu
     :type train_val_test: str
     :param batch_size: Number of images in a batch
     :type batch_size: int
-    :param shuffle: Whether or not to shuffle the data
+    :param shuffle: Whether to shuffle the data
     :type shuffle: bool
     :param num_workers: How many subprocesses are used for data loading
     :type num_workers: int
@@ -52,19 +52,19 @@ def initialize(input_dir: str, batch_size: int, lr: float, patience: int, freque
     """
     Initializes neural network for solving classification problem on Places365 dataset
 
-    :param input_dir: Path to the splitted dataset
+    :param input_dir: Path to the split dataset.
     :type input_dir: str
-    :param batch_size: Number of images in a batch
+    :param batch_size: Number of images in a batch.
     :type batch_size: int
-    :param lr: Learning rate for model's optimizer
+    :param lr: Learning rate for model's optimizer.
     :type lr: float
-    :param patience: How to wait before learning rate scheduler fires up
+    :param patience: How to wait before learning rate scheduler fires up.
     :type patience: number
-    :param frequency: Frequency for model's optimizer
+    :param frequency: Frequency for model's optimizer.
     :type frequency: int
-    :param num_workers: How many subprocesses are used for data loading
+    :param num_workers: How many subprocesses are used for data loading.
     :type num_workers: int
-    :param no_classes: How many calls are in the dataset, used for classier retraining
+    :param no_classes: How many calls are in the dataset, used for classifier retraining.
     :type no_classes: int
     :return: Model object alongside train, validation, test data loaders
     :rtype: Tuple[PlacesModel, Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader, torch.utils.data.DataLoader]]
@@ -137,6 +137,36 @@ def create_gridsearch_parameters() -> Dict[str, Tuple]:
 
 def run_gridsearch(input_dir: str, batch_size: int, lr: float, patience: int, frequency: int, num_workers: int,
                    no_classes: int, max_epochs: int, checkpoint_path: str, gridsearch_params: Dict[str, Tuple]):
+    """
+    Runs gridsearch over parameters defined in gridsearch_params
+    This function trains model over every single combination of parameters defined in gridsearch_params,
+    model with the best accuracy will be stored in checkpoint_path.
+
+    Arguments input_dir, batch_size, lr, patience, frequency, num_workers and no_classes are default values for
+    initialize() parameters. If these parameters are not defined in gridsearch_params, default values will be taken,
+    otherwise these arguments will be ignored.
+
+    :param input_dir: Path to the split dataset
+    :type input_dir: str
+    :param batch_size: Number of images in a batch.
+    :type batch_size: int
+    :param lr: Learning rate for model's optimizer.
+    :type lr: float
+    :param patience: How to wait before learning rate scheduler fires up.
+    :type patience: number
+    :param frequency: Frequency for model's optimizer.
+    :type frequency: int
+    :param num_workers: How many subprocesses are used for data loading.
+    :type num_workers: int
+    :param no_classes: How many calls are in the dataset, used for classifier retraining.
+    :type no_classes: int
+    :param max_epochs: Max number of epochs
+    :type max_epochs: number
+    :param checkpoint_path: Path to directory in which to save model checkpoints
+    :type checkpoint_path: str
+    :param gridsearch_params: Parameters over which to perform gridsearch. Output of create_gridsearch_parameters
+    :type Dict[str, Tuple]:
+    """
     best_path = os.path.join(checkpoint_path, "best")
     current_path = os.path.join(checkpoint_path, "current")
     default_parameters = {
