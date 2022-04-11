@@ -18,7 +18,7 @@ def create_train_pipeline() -> Pipeline:
         ),
         node(
             train_model,
-            ["model", "sets", "params:max_epochs", "params:models_path"],
+            ["model", "sets", "params:max_epochs", "params:models_path", "params:frequency", "params:earlystop_patience"],
             "trainer",
             name="train_model"
         )
