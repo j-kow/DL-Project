@@ -133,9 +133,8 @@ def create_gridsearch_parameters() -> Dict[str, Tuple]:
     :rtype: Dict[str, Tuple]
     """
     params = {
-        "lr": (0.003, 0.01, 0.03, 0.1, 0.3),
-        "patience": (1, 2, 3, 4, 5),
-        "frequency": (1, 2, 3, 4, 5)
+        "lr": (0.003, 0.01, 0.03, 0.1),
+        "patience": (1, 2, 3, 4),
     }
     return params
 
@@ -208,6 +207,8 @@ def run_gridsearch(input_dir: str, batch_size: int, lr: float, patience: int, fr
                 pass
             shutil.copytree(current_path, best_path)
         shutil.rmtree(current_path)
+        wandb.finish()
+
     for f in os.listdir(best_path):
         shutil.move(os.path.join(best_path, f), checkpoint_path)
     shutil.rmtree(best_path)
