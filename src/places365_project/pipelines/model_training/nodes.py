@@ -128,7 +128,7 @@ def create_gridsearch_parameters() -> Dict[str, Tuple]:
     :rtype: Dict[str, Tuple]
     """
     params = {
-        "lr": (0.001, 0.003, 0.01, 0.03, 0.1, 0.3),
+        "lr": (0.003, 0.01, 0.03, 0.1, 0.3),
         "patience": (1, 2, 3, 4, 5),
         "frequency": (1, 2, 3, 4, 5)
     }
@@ -150,7 +150,14 @@ def run_gridsearch(input_dir: str, batch_size: int, lr: float, patience: int, fr
     best_acc = 0
     for named_parameters in itertools.product(*name_variable_pair_list):
         named_parameters = dict(named_parameters)
-        for parameter_name, value in default_parameters.values():
+        params_str = ", ".join([f"{name}={value}" for name, value in named_parameters.items()])
+        
+        print("     =================================== ")
+        print("    RUNNING TRAINING OF MODEL WITH PARAMS:")
+        print("    " + params_str)
+        print("     =================================== ")
+
+        for parameter_name, value in default_parameters.items():
             if named_parameters.get(parameter_name) is None:
                 named_parameters[parameter_name] = value
 
@@ -159,8 +166,12 @@ def run_gridsearch(input_dir: str, batch_size: int, lr: float, patience: int, fr
         metrics = trainer.validate(model, val)[0]
         if metrics["val_acc"] > best_acc:
             best_acc = metrics["val_acc"]
-            shutil.rmtree(best_path)
+            try:
+                shutil.rmtree(best_path)
+            except FileNotFoundError:
+                pass
             shutil.copytree(current_path, best_path)
         shutil.rmtree(current_path)
-    shutil.copytree(best_path, checkpoint_path)
+    for f in os.listdir(best_path):
+        shutil.move(os.path.join(best_path, f), checkpoint_path)
     shutil.rmtree(best_path)

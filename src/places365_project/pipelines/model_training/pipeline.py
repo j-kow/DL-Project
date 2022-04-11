@@ -19,7 +19,7 @@ def create_train_pipeline() -> Pipeline:
         node(
             train_model,
             ["model", "sets", "params:max_epochs", "params:models_path"],
-            ["trainer"],
+            "trainer",
             name="train_model"
         )
     ])
@@ -30,7 +30,7 @@ def create_grisdearch_pipeline() -> Pipeline:
         node(
             create_gridsearch_parameters,
             None,
-            ["grid_params"],
+            "grid_params",
             name="create_gridsearch_parameters"
         ),
         node(
