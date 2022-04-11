@@ -17,3 +17,4 @@ no_classes: 365
 lr: 0.01
 patience: 2
 workers: 4
+earlystop_patience: 3

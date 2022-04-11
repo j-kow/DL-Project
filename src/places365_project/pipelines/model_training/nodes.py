@@ -83,7 +83,7 @@ def initialize(input_dir: str, batch_size: int, lr: float, patience: int, freque
     return model, (train_set, val_set, test_set)
 
 
-def train_model(model: PlacesModel, sets: tuple, max_epochs: int, checkpoint_path: str, frequency: int) -> pl.Trainer:
+def train_model(model: PlacesModel, sets: tuple, max_epochs: int, checkpoint_path: str, frequency: int, patience: int) -> pl.Trainer:
     """Trains the model
 
     :param model: Model object created with initialize()
@@ -96,6 +96,9 @@ def train_model(model: PlacesModel, sets: tuple, max_epochs: int, checkpoint_pat
     :type checkpoint_path: str
     :param frequency: Frequency of validating model. If passed 1, validation will be performed every epoch.
     Must be equal or lower than initialize() frequency argument
+    :type frequency: int
+    :param patience: Patience of early stopping. Should be higher than initialize() patience argument.
+    :type patienct: int
     :return: Trainer of a model which can be later used for evaluation on validset/testset
     :rtype: pl.Trainer
     """
@@ -194,7 +197,8 @@ def run_gridsearch(input_dir: str, batch_size: int, lr: float, patience: int, fr
                 named_parameters[parameter_name] = value
 
         model, (train, val, test) = initialize(**named_parameters)
-        trainer = train_model(model, (train, val, test), max_epochs, current_path, named_parameters["frequency"])
+        trainer = train_model(model, (train, val, test), max_epochs, current_path, 
+                named_parameters["frequency"], named_parameters["patience"] + 2)
         metrics = trainer.validate(model, val)[0]
         if metrics["val_acc"] > best_acc:
             best_acc = metrics["val_acc"]
