@@ -3,7 +3,7 @@ raw_path: data/01_raw/data_256
 processed_path: data/03_primary/data_256
 final_path: data/05_model_input/data_256
 models_path: data/06_models
-prune_frac: 0.70
+prune_frac: 0.50
 delete_raw_data: True
 batch_size: 128
 max_epochs: 100
@@ -13,7 +13,7 @@ shuffle: True
 delete_unsplitted_data: True
 split_required: [6,2,2]
 frequency: 2
-no_classes: 368
+no_classes: 365
 lr: 0.01
 patience: 2
 workers: 4
