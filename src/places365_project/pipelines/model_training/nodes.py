@@ -83,7 +83,7 @@ def initialize(input_dir: str, batch_size: int, lr: float, patience: int, freque
     return model, (train_set, val_set, test_set)
 
 
-def train_model(model: PlacesModel, sets: tuple, max_epochs: int, checkpoint_path: str) -> pl.Trainer:
+def train_model(model: PlacesModel, sets: tuple, max_epochs: int, checkpoint_path: str, frequency: int) -> pl.Trainer:
     """Trains the model
 
     :param model: Model object created with initialize()
@@ -94,6 +94,8 @@ def train_model(model: PlacesModel, sets: tuple, max_epochs: int, checkpoint_pat
     :type max_epochs: number
     :param checkpoint_path: Path to directory in which to save model checkpoints
     :type checkpoint_path: str
+    :param frequency: Frequency of validating model. If passed 1, validation will be performed every epoch.
+    Must be equal or lower than initialize() frequency argument
     :return: Trainer of a model which can be later used for evaluation on validset/testset
     :rtype: pl.Trainer
     """
@@ -105,7 +107,7 @@ def train_model(model: PlacesModel, sets: tuple, max_epochs: int, checkpoint_pat
 
     trainer = pl.Trainer(
         progress_bar_refresh_rate=10,
-        check_val_every_n_epoch=2,
+        check_val_every_n_epoch=frequency,
         max_epochs=max_epochs,
         callbacks=[
             pl.callbacks.LearningRateMonitor(logging_interval="step"),
@@ -192,7 +194,7 @@ def run_gridsearch(input_dir: str, batch_size: int, lr: float, patience: int, fr
                 named_parameters[parameter_name] = value
 
         model, (train, val, test) = initialize(**named_parameters)
-        trainer = train_model(model, (train, val, test), max_epochs, current_path)
+        trainer = train_model(model, (train, val, test), max_epochs, current_path, named_parameters["frequency"])
         metrics = trainer.validate(model, val)[0]
         if metrics["val_acc"] > best_acc:
             best_acc = metrics["val_acc"]
