@@ -7,7 +7,7 @@ from torchmetrics.functional import accuracy
 
 
 class PlacesModel(LightningModule):
-    def __init__(self, lr, patience, frequency, no_classes=365):
+    def __init__(self, lr=0.01, patience=3, frequency=3, no_classes=365):
         super().__init__()
         self.save_hyperparameters()
         self.model = tv.models.mobilenet_v3_small(pretrained=True)
