@@ -70,7 +70,7 @@ def test_model(model: PlacesModel, test_dataset: DataLoader, result_path: str, f
 
     plt.figure(figsize=(figsize, figsize))
     sn.heatmap(df_cm)
-    plt.savefig(result_path)
+    plt.savefig(os.path.join(result_path, "confusion_matrix.png"))
 
     print(" ============================ ")
     print(f" ACCURACY OF A TEST SET: {accuracy}")
