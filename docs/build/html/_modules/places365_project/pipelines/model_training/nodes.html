@@ -1,0 +1,436 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>places365_project.pipelines.model_training.nodes &mdash; places365_project 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="/root/venv/lib/python3.8/site-packages/kedro/framework/html/_static/css/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="/root/venv/lib/python3.8/site-packages/kedro/framework/html/_static/css/qb1-sphinx-rtd.css" type="text/css" />
+  <link rel="stylesheet" href="/root/venv/lib/python3.8/site-packages/kedro/framework/html/_static/css/theme-overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/clipboard.min.js"></script>
+        <script src="../../../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> places365_project
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">places365_project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../places365_project.html">places365_project package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../places365_project.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../places365_project.pipelines.html">places365_project.pipelines package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../places365_project.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../places365_project.html#module-places365_project.hooks">places365_project.hooks module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../places365_project.html#module-places365_project.pipeline_registry">places365_project.pipeline_registry module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../places365_project.html#module-places365_project.settings">places365_project.settings module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">places365_project</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>places365_project.pipelines.model_training.nodes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for places365_project.pipelines.model_training.nodes</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">pytorch_lightning</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="kn">from</span> <span class="nn">pytorch_lightning.loggers</span> <span class="kn">import</span> <span class="n">WandbLogger</span>
+<span class="kn">import</span> <span class="nn">wandb</span>
+<span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">transforms</span>
+<span class="kn">from</span> <span class="nn">torchvision.datasets</span> <span class="kn">import</span> <span class="n">ImageFolder</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">.model</span> <span class="kn">import</span> <span class="n">PlacesModel</span>
+
+
+<div class="viewcode-block" id="create_data_loader"><a class="viewcode-back" href="../../../../places365_project.pipelines.model_training.html#places365_project.pipelines.model_training.nodes.create_data_loader">[docs]</a><span class="k">def</span> <span class="nf">create_data_loader</span><span class="p">(</span><span class="n">input_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">train_val_test</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">shuffle</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+                       <span class="n">num_workers</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataLoader</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates pytorch data loader from places365 dataset</span>
+
+<span class="sd">    :param input_dir: Path to the root of processed dataset</span>
+<span class="sd">    :type input_dir: str</span>
+<span class="sd">    :param train_val_test: DataLoader for which subset of data to return, train, validation or test</span>
+<span class="sd">    :type train_val_test: str</span>
+<span class="sd">    :param train_val_test: DataLoader for which subset of data to return, train, validation or test</span>
+<span class="sd">    :type train_val_test: str</span>
+<span class="sd">    :param batch_size: Number of images in a batch</span>
+<span class="sd">    :type batch_size: int</span>
+<span class="sd">    :param shuffle: Whether to shuffle the data</span>
+<span class="sd">    :type shuffle: bool</span>
+<span class="sd">    :param num_workers: How many subprocesses are used for data loading</span>
+<span class="sd">    :type num_workers: int</span>
+<span class="sd">    :return: Data loader for places365 dataset</span>
+<span class="sd">    :rtype: torch.utils.data.DataLoader</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">train_val_test</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Wrong subset required&quot;</span><span class="p">)</span>
+
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">ImageFolder</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">train_val_test</span><span class="p">),</span>
+        <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">([</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">CenterCrop</span><span class="p">(</span><span class="mi">224</span><span class="p">),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+            <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">0.485</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.406</span><span class="p">],</span> <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">0.229</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.225</span><span class="p">]),</span>
+        <span class="p">])</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="initialize"><a class="viewcode-back" href="../../../../places365_project.pipelines.model_training.html#places365_project.pipelines.model_training.nodes.initialize">[docs]</a><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">input_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">patience</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">frequency</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_workers</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+               <span class="n">no_classes</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">PlacesModel</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">DataLoader</span><span class="p">,</span> <span class="n">DataLoader</span><span class="p">,</span> <span class="n">DataLoader</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes neural network for solving classification problem on Places365 dataset</span>
+
+<span class="sd">    :param input_dir: Path to the split dataset.</span>
+<span class="sd">    :type input_dir: str</span>
+<span class="sd">    :param batch_size: Number of images in a batch.</span>
+<span class="sd">    :type batch_size: int</span>
+<span class="sd">    :param lr: Learning rate for model&#39;s optimizer.</span>
+<span class="sd">    :type lr: float</span>
+<span class="sd">    :param patience: How to wait before learning rate scheduler fires up.</span>
+<span class="sd">    :type patience: number</span>
+<span class="sd">    :param frequency: Frequency for model&#39;s optimizer.</span>
+<span class="sd">    :type frequency: int</span>
+<span class="sd">    :param num_workers: How many subprocesses are used for data loading.</span>
+<span class="sd">    :type num_workers: int</span>
+<span class="sd">    :param no_classes: How many calls are in the dataset, used for classifier retraining.</span>
+<span class="sd">    :type no_classes: int</span>
+<span class="sd">    :return: Model object alongside train, validation, test data loaders</span>
+<span class="sd">    :rtype: Tuple[PlacesModel, Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader, torch.utils.data.DataLoader]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">PlacesModel</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="n">patience</span><span class="p">,</span> <span class="n">frequency</span><span class="p">,</span> <span class="n">no_classes</span><span class="p">)</span>
+
+    <span class="n">train_set</span> <span class="o">=</span> <span class="n">create_data_loader</span><span class="p">(</span><span class="n">input_dir</span><span class="o">=</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">train_val_test</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                   <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">)</span>
+    <span class="n">val_set</span> <span class="o">=</span> <span class="n">create_data_loader</span><span class="p">(</span><span class="n">input_dir</span><span class="o">=</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">train_val_test</span><span class="o">=</span><span class="s1">&#39;val&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                 <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">)</span>
+    <span class="n">test_set</span> <span class="o">=</span> <span class="n">create_data_loader</span><span class="p">(</span><span class="n">input_dir</span><span class="o">=</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">train_val_test</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                  <span class="n">num_workers</span><span class="o">=</span><span class="n">num_workers</span><span class="p">)</span>
+
+    <span class="n">wandb</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="s2">&quot;Places365&quot;</span><span class="p">,</span> <span class="n">entity</span><span class="o">=</span><span class="s2">&quot;dl_image_classification&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="p">(</span><span class="n">train_set</span><span class="p">,</span> <span class="n">val_set</span><span class="p">,</span> <span class="n">test_set</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="train_model"><a class="viewcode-back" href="../../../../places365_project.pipelines.model_training.html#places365_project.pipelines.model_training.nodes.train_model">[docs]</a><span class="k">def</span> <span class="nf">train_model</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">PlacesModel</span><span class="p">,</span> <span class="n">sets</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">max_epochs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">checkpoint_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frequency</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">patience</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Trains the model</span>
+
+<span class="sd">    :param model: Model object created with initialize()</span>
+<span class="sd">    :type model: PlacesModel</span>
+<span class="sd">    :param sets: Tuple of 3 DataLoaders, each representing training, validation and test sets, in said order</span>
+<span class="sd">    :type sets: tuple</span>
+<span class="sd">    :param max_epochs: Max number of epochs</span>
+<span class="sd">    :type max_epochs: number</span>
+<span class="sd">    :param checkpoint_path: Path to directory in which to save model checkpoints</span>
+<span class="sd">    :type checkpoint_path: str</span>
+<span class="sd">    :param frequency: Frequency of validating model. If passed 1, validation will be performed every epoch.</span>
+<span class="sd">    Must be equal or lower than initialize() frequency argument</span>
+<span class="sd">    :type frequency: int</span>
+<span class="sd">    :param patience: Patience of early stopping. Should be higher than initialize() patience argument.</span>
+<span class="sd">    :type patienct: int</span>
+<span class="sd">    :return: Trainer of a model which can be later used for evaluation on validset/testset</span>
+<span class="sd">    :rtype: pl.Trainer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">train_data</span><span class="p">,</span> <span class="n">val_data</span><span class="p">,</span> <span class="n">test_data</span> <span class="o">=</span> <span class="n">sets</span>
+    <span class="n">wandb_logger</span> <span class="o">=</span> <span class="n">WandbLogger</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="s2">&quot;Places365&quot;</span><span class="p">)</span>
+
+    <span class="n">gpu_devices</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="mi">0</span>
+
+    <span class="n">trainer</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">Trainer</span><span class="p">(</span>
+        <span class="n">progress_bar_refresh_rate</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">check_val_every_n_epoch</span><span class="o">=</span><span class="n">frequency</span><span class="p">,</span>
+        <span class="n">max_epochs</span><span class="o">=</span><span class="n">max_epochs</span><span class="p">,</span>
+        <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span>
+            <span class="n">pl</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">LearningRateMonitor</span><span class="p">(</span><span class="n">logging_interval</span><span class="o">=</span><span class="s2">&quot;step&quot;</span><span class="p">),</span>
+            <span class="n">pl</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">EarlyStopping</span><span class="p">(</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+            <span class="n">pl</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span><span class="n">dirpath</span><span class="o">=</span><span class="n">checkpoint_path</span><span class="p">)</span>
+        <span class="p">],</span>
+        <span class="n">gpus</span><span class="o">=</span><span class="n">gpu_devices</span><span class="p">,</span>
+        <span class="n">logger</span><span class="o">=</span><span class="n">wandb_logger</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">val_data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">trainer</span></div>
+
+
+<div class="viewcode-block" id="create_gridsearch_parameters"><a class="viewcode-back" href="../../../../places365_project.pipelines.model_training.html#places365_project.pipelines.model_training.nodes.create_gridsearch_parameters">[docs]</a><span class="k">def</span> <span class="nf">create_gridsearch_parameters</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a dictionary containing parameters to test during gridsearch.</span>
+
+<span class="sd">    :return: Dictionary of possible values for a given parameter</span>
+<span class="sd">    :rtype: Dict[str, Tuple]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.003</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+        <span class="s2">&quot;patience&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">params</span></div>
+
+
+<div class="viewcode-block" id="run_gridsearch"><a class="viewcode-back" href="../../../../places365_project.pipelines.model_training.html#places365_project.pipelines.model_training.nodes.run_gridsearch">[docs]</a><span class="k">def</span> <span class="nf">run_gridsearch</span><span class="p">(</span><span class="n">input_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">patience</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">frequency</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_workers</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                   <span class="n">no_classes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">max_epochs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">checkpoint_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">gridsearch_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Runs gridsearch over parameters defined in gridsearch_params</span>
+<span class="sd">    This function trains model over every single combination of parameters defined in gridsearch_params,</span>
+<span class="sd">    model with the best accuracy will be stored in checkpoint_path.</span>
+
+<span class="sd">    Arguments input_dir, batch_size, lr, patience, frequency, num_workers and no_classes are default values for</span>
+<span class="sd">    initialize() parameters. If these parameters are not defined in gridsearch_params, default values will be taken,</span>
+<span class="sd">    otherwise these arguments will be ignored.</span>
+
+<span class="sd">    :param input_dir: Path to the split dataset</span>
+<span class="sd">    :type input_dir: str</span>
+<span class="sd">    :param batch_size: Number of images in a batch.</span>
+<span class="sd">    :type batch_size: int</span>
+<span class="sd">    :param lr: Learning rate for model&#39;s optimizer.</span>
+<span class="sd">    :type lr: float</span>
+<span class="sd">    :param patience: How to wait before learning rate scheduler fires up.</span>
+<span class="sd">    :type patience: number</span>
+<span class="sd">    :param frequency: Frequency for model&#39;s optimizer.</span>
+<span class="sd">    :type frequency: int</span>
+<span class="sd">    :param num_workers: How many subprocesses are used for data loading.</span>
+<span class="sd">    :type num_workers: int</span>
+<span class="sd">    :param no_classes: How many calls are in the dataset, used for classifier retraining.</span>
+<span class="sd">    :type no_classes: int</span>
+<span class="sd">    :param max_epochs: Max number of epochs</span>
+<span class="sd">    :type max_epochs: number</span>
+<span class="sd">    :param checkpoint_path: Path to directory in which to save model checkpoints</span>
+<span class="sd">    :type checkpoint_path: str</span>
+<span class="sd">    :param gridsearch_params: Parameters over which to perform gridsearch. Output of create_gridsearch_parameters</span>
+<span class="sd">    :type Dict[str, Tuple]:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">best_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">,</span> <span class="s2">&quot;best&quot;</span><span class="p">)</span>
+    <span class="n">current_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">,</span> <span class="s2">&quot;current&quot;</span><span class="p">)</span>
+    <span class="n">default_parameters</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;input_dir&quot;</span><span class="p">:</span> <span class="n">input_dir</span><span class="p">,</span> <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="n">batch_size</span><span class="p">,</span> <span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="n">lr</span><span class="p">,</span> <span class="s2">&quot;patience&quot;</span><span class="p">:</span> <span class="n">patience</span><span class="p">,</span> <span class="s2">&quot;frequency&quot;</span><span class="p">:</span> <span class="n">frequency</span><span class="p">,</span>
+        <span class="s2">&quot;num_workers&quot;</span><span class="p">:</span> <span class="n">num_workers</span><span class="p">,</span> <span class="s2">&quot;no_classes&quot;</span><span class="p">:</span> <span class="n">no_classes</span>
+    <span class="p">}</span>
+    <span class="n">name_variable_pair_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">gridsearch_params</span><span class="p">[</span><span class="n">name</span><span class="p">]]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">gridsearch_params</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+    <span class="p">]</span>
+
+    <span class="n">best_acc</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">named_parameters</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">name_variable_pair_list</span><span class="p">):</span>
+        <span class="n">named_parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">named_parameters</span><span class="p">)</span>
+        <span class="n">params_str</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">named_parameters</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;     =================================== &quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    RUNNING TRAINING OF MODEL WITH PARAMS:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;    &quot;</span> <span class="o">+</span> <span class="n">params_str</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;     =================================== &quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">parameter_name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">default_parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">named_parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">parameter_name</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">named_parameters</span><span class="p">[</span><span class="n">parameter_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="n">model</span><span class="p">,</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span> <span class="o">=</span> <span class="n">initialize</span><span class="p">(</span><span class="o">**</span><span class="n">named_parameters</span><span class="p">)</span>
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">train_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">test</span><span class="p">),</span> <span class="n">max_epochs</span><span class="p">,</span> <span class="n">current_path</span><span class="p">,</span> 
+                <span class="n">named_parameters</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">],</span> <span class="n">named_parameters</span><span class="p">[</span><span class="s2">&quot;patience&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">metrics</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">val</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;val_acc&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">best_acc</span><span class="p">:</span>
+            <span class="n">best_acc</span> <span class="o">=</span> <span class="n">metrics</span><span class="p">[</span><span class="s2">&quot;val_acc&quot;</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">best_path</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">current_path</span><span class="p">,</span> <span class="n">best_path</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">current_path</span><span class="p">)</span>
+        <span class="n">wandb</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">best_path</span><span class="p">):</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">best_path</span><span class="p">,</span> <span class="n">f</span><span class="p">),</span> <span class="n">checkpoint_path</span><span class="p">)</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">best_path</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright .
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

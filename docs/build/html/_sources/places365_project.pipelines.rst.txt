@@ -1,0 +1,16 @@
+places365\_project.pipelines package
+====================================
+
+.. automodule:: places365_project.pipelines
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   places365_project.pipelines.dataset_creation
+   places365_project.pipelines.model_training

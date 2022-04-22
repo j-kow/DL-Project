@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>places365_project.pipelines.model_evaluation package &mdash; places365_project 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="/root/venv/lib/python3.8/site-packages/kedro/framework/html/_static/css/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="/root/venv/lib/python3.8/site-packages/kedro/framework/html/_static/css/qb1-sphinx-rtd.css" type="text/css" />
+  <link rel="stylesheet" href="/root/venv/lib/python3.8/site-packages/kedro/framework/html/_static/css/theme-overrides.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> places365_project
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">places365_project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="places365_project.html">places365_project package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="places365_project.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="places365_project.pipelines.html">places365_project.pipelines package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="places365_project.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="places365_project.html#module-places365_project.hooks">places365_project.hooks module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="places365_project.html#module-places365_project.pipeline_registry">places365_project.pipeline_registry module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="places365_project.html#module-places365_project.settings">places365_project.settings module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">places365_project</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>places365_project.pipelines.model_evaluation package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<section id="module-places365_project.pipelines.model_evaluation">
+<span id="places365-project-pipelines-model-evaluation-package"></span><h1>places365_project.pipelines.model_evaluation package<a class="headerlink" href="#module-places365_project.pipelines.model_evaluation" title="Permalink to this headline">¶</a></h1>
+<p>This is a boilerplate pipeline ‘model_training’
+generated using Kedro 0.17.7</p>
+<dl class="py function">
+<dt id="places365_project.pipelines.model_evaluation.create_pipeline">
+<code class="sig-prename descclassname">places365_project.pipelines.model_evaluation.</code><code class="sig-name descname">create_pipeline</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/places365_project/pipelines/model_evaluation/pipeline.html#create_pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#places365_project.pipelines.model_evaluation.create_pipeline" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-places365_project.pipelines.model_evaluation.nodes">
+<span id="places365-project-pipelines-model-evaluation-nodes-module"></span><h2>places365_project.pipelines.model_evaluation.nodes module<a class="headerlink" href="#module-places365_project.pipelines.model_evaluation.nodes" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="places365_project.pipelines.model_evaluation.nodes.load_model_and_data">
+<code class="sig-prename descclassname">places365_project.pipelines.model_evaluation.nodes.</code><code class="sig-name descname">load_model_and_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model_path</span></em>, <em class="sig-param"><span class="n">input_dir</span></em>, <em class="sig-param"><span class="n">batch_size</span></em>, <em class="sig-param"><span class="n">num_workers</span></em>, <em class="sig-param"><span class="n">model_checkpoint</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/places365_project/pipelines/model_evaluation/nodes.html#load_model_and_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#places365_project.pipelines.model_evaluation.nodes.load_model_and_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads neural network for solving classification problem on Places365 dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_path</strong> (<em>str</em>) – Path to the model.</p></li>
+<li><p><strong>input_dir</strong> (<em>str</em>) – Path to the split dataset.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Number of images in a batch.</p></li>
+<li><p><strong>num_workers</strong> (<em>int</em>) – How many subprocesses are used for data loading.</p></li>
+<li><p><strong>model_checkpoint</strong> (<em>str</em>) – name of model checkpoint</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Model object alongside train, validation, test data loaders</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[<a class="reference internal" href="places365_project.pipelines.model_training.html#places365_project.pipelines.model_training.model.PlacesModel" title="places365_project.pipelines.model_training.model.PlacesModel">PlacesModel</a>, torch.utils.data.DataLoader]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="places365_project.pipelines.model_evaluation.nodes.test_model">
+<code class="sig-prename descclassname">places365_project.pipelines.model_evaluation.nodes.</code><code class="sig-name descname">test_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">test_dataset</span></em>, <em class="sig-param"><span class="n">result_path</span></em>, <em class="sig-param"><span class="n">figsize</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/places365_project/pipelines/model_evaluation/nodes.html#test_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#places365_project.pipelines.model_evaluation.nodes.test_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains the model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<a class="reference internal" href="places365_project.pipelines.model_training.html#places365_project.pipelines.model_training.model.PlacesModel" title="places365_project.pipelines.model_training.model.PlacesModel"><em>PlacesModel</em></a>) – Model object created with initialize()</p></li>
+<li><p><strong>test_dataset</strong> (<em>DataLoader</em>) – DataLoader of test dataset.</p></li>
+<li><p><strong>result_path</strong> (<em>str</em>) – Path where the resulting confusion matrix will be stored</p></li>
+<li><p><strong>figsize</strong> (<em>int</em>) – Size of confusion matrix image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Accuracy of the model on the test dataset and confusion matrix</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Tuple[int, np.array]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-places365_project.pipelines.model_evaluation.pipeline">
+<span id="places365-project-pipelines-model-evaluation-pipeline-module"></span><h2>places365_project.pipelines.model_evaluation.pipeline module<a class="headerlink" href="#module-places365_project.pipelines.model_evaluation.pipeline" title="Permalink to this headline">¶</a></h2>
+<p>This is a boilerplate pipeline ‘model_training’
+generated using Kedro 0.17.7</p>
+<dl class="py function">
+<dt id="places365_project.pipelines.model_evaluation.pipeline.create_pipeline">
+<code class="sig-prename descclassname">places365_project.pipelines.model_evaluation.pipeline.</code><code class="sig-name descname">create_pipeline</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/places365_project/pipelines/model_evaluation/pipeline.html#create_pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#places365_project.pipelines.model_evaluation.pipeline.create_pipeline" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright .
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

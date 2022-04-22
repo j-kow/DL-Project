@@ -1,0 +1,26 @@
+places365\_project.pipelines.model\_evaluation package
+======================================================
+
+.. automodule:: places365_project.pipelines.model_evaluation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+places365\_project.pipelines.model\_evaluation.nodes module
+-----------------------------------------------------------
+
+.. automodule:: places365_project.pipelines.model_evaluation.nodes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+places365\_project.pipelines.model\_evaluation.pipeline module
+--------------------------------------------------------------
+
+.. automodule:: places365_project.pipelines.model_evaluation.pipeline
+   :members:
+   :undoc-members:
+   :show-inheritance:

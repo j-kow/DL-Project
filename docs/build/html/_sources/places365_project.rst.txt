@@ -1,0 +1,42 @@
+places365\_project package
+==========================
+
+.. automodule:: places365_project
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   places365_project.pipelines
+
+Submodules
+----------
+
+places365\_project.hooks module
+-------------------------------
+
+.. automodule:: places365_project.hooks
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+places365\_project.pipeline\_registry module
+--------------------------------------------
+
+.. automodule:: places365_project.pipeline_registry
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+places365\_project.settings module
+----------------------------------
+
+.. automodule:: places365_project.settings
+   :members:
+   :undoc-members:
+   :show-inheritance:

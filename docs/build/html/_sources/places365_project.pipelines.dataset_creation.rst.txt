@@ -1,0 +1,26 @@
+places365\_project.pipelines.dataset\_creation package
+======================================================
+
+.. automodule:: places365_project.pipelines.dataset_creation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+places365\_project.pipelines.dataset\_creation.nodes module
+-----------------------------------------------------------
+
+.. automodule:: places365_project.pipelines.dataset_creation.nodes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+places365\_project.pipelines.dataset\_creation.pipeline module
+--------------------------------------------------------------
+
+.. automodule:: places365_project.pipelines.dataset_creation.pipeline
+   :members:
+   :undoc-members:
+   :show-inheritance:

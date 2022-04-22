@@ -1,0 +1,7 @@
+places365_project
+=================
+
+.. toctree::
+   :maxdepth: 4
+
+   places365_project

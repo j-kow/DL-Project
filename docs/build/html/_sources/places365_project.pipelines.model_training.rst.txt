@@ -1,0 +1,34 @@
+places365\_project.pipelines.model\_training package
+====================================================
+
+.. automodule:: places365_project.pipelines.model_training
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+places365\_project.pipelines.model\_training.model module
+---------------------------------------------------------
+
+.. automodule:: places365_project.pipelines.model_training.model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+places365\_project.pipelines.model\_training.nodes module
+---------------------------------------------------------
+
+.. automodule:: places365_project.pipelines.model_training.nodes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+places365\_project.pipelines.model\_training.pipeline module
+------------------------------------------------------------
+
+.. automodule:: places365_project.pipelines.model_training.pipeline
+   :members:
+   :undoc-members:
+   :show-inheritance:
