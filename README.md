@@ -1,10 +1,32 @@
 # Places365
 
-In this simple task we train a CNN model on Places356 dataset to perform image classification.
+In this simple task, we train a CNN model on the Places356 dataset to perform image classification.
 
 There are 1.8 million train images from 365 scene categories in the Places365-Standard, which are used to train the Places365 CNNs. There are 50 images per category in the validation set and 900 images per category in the testing set.
 
 Convolutional neural networks (CNNs) trained on the Places2 Database can be used for scene recognition as well as generic deep scene features for visual recognition.
+
+The project consists of 4 pipelines:
+- dataset creation
+- model training
+- params grid search
+- model evaluation
+
+Models were initially trained on Kaggle which limits dataset size so the dataset creation pipeline removes images so that the final dataset is smaller.
+
+Model training is a standard one. We use Pytorch Lightning to prevent having much boilerplate code. The training uses techniques such as:
+- early stopping,
+- learning rate scheduling,
+- half-precision training.
+
+We run a grid search on learning rate and patience for the learning rate scheduler to find the best hyperparams that will allow us to get the best model.
+Grid search looks at the validation accuracy to find the best model.
+
+After having found the best model, we evaluate it with a model evaluation pipeline which loads pretrained model and test set, tests it on a test set, and computes the confusion matrix:
+
+![Confusion matrix](data/08_reporting/final-confusion_martix.png)
+
+To see details of each function/node, read the kedro generated HTML documentation.
 
 ## Overview
 

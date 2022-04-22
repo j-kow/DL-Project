@@ -83,6 +83,7 @@ def refactor_data_structure(raw_dir: str, new_dir: str, delete_old: bool):
         if delete_old:
             shutil.rmtree(old_path)
 
+
 def split_into_train_val_test(data_dir: str, new_dir: str, split: tuple, delete_old: bool):
     """Refactors data directory structure into train/val/test directories.
     End result will look like this:
